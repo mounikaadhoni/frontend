@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="courses.html">Courses</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<h1>Contact Us 📩</h1>
+
+<div class="form-container">
+  <form>
+    <input type="text" placeholder="Your Name"><br><br>
+    <input type="email" placeholder="Your Email"><br><br>
+    <textarea placeholder="Message"></textarea><br><br>
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+<div class="footer">
+  <p>© 2026 My College | Contact: college@gmail.com</p>
+</div>
+<form onsubmit="sendData(event)">
+  <input type="text" id="name" placeholder="Your Name"><br><br>
+  <input type="email" id="email" placeholder="Your Email"><br><br>
+  <textarea id="message" placeholder="Message"></textarea><br><br>
+  <button type="submit">Send</button>
+</form>
+
+<script>
+function sendData(e) {
+  e.preventDefault();
+
+  fetch("http://127.0.0.1:8000/api/save/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      message: document.getElementById("message").value
+    })
+  })
+  .then(res => res.json())
+  .then(data => alert(data.message));
+}
+</script>
+
+</body>
+</html>
